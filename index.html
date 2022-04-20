@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/1343149204.js" crossorigin="anonymous"></script>
+    <title>Pomodoro</title>
+
+</head>
+
+<body>
+    <div class="title">
+        <h1>PomoTimer</h1>
+    </div>
+
+    <div class="pomodoro">
+        <svg width="745" height="630" viewBox="0 0 745 696" fill="none" >
+            <path opacity="0.15" d="M365.747 695.288C540.283 695.288 681.772 677.094 681.772 654.651C681.772 632.208 540.283 614.014 365.747 614.014C191.21 614.014 49.7215 632.208 49.7215 654.651C49.7215 677.094 191.21 695.288 365.747 695.288Z" fill="#45413C"/>
+            <path d="M456.481 60.3316H286.178C128.166 60.3316 0 173.777 0 326.167C0 495.489 143.967 644.492 319.537 644.492H424.878C600.448 644.492 744.415 495.489 744.415 326.167C744.415 173.777 616.249 60.3316 456.481 60.3316Z" fill="#E24D48"/>
+            <path d="M424.139 553.058H318.797C159.029 553.058 27.3513 431.146 4.52728 280.45C2.77159 293.996 1.01589 309.235 1.01589 324.473C-0.739806 495.489 143.227 644.492 318.797 644.492H424.139C599.708 644.492 743.675 495.489 743.675 326.167C743.675 310.928 741.92 295.689 740.164 282.143C715.584 431.146 583.907 553.058 424.139 553.058Z" fill="#E24D48"/>
+            <path d="M358.949 125.579C415.752 135.617 472.554 159.459 502.626 173.262C512.65 178.281 524.344 172.007 522.674 163.224C517.662 143.147 505.968 113.031 474.225 92.9537C467.543 89.1891 467.543 80.4053 475.896 77.8956C495.944 69.1118 522.674 64.0925 544.393 60.3281C556.087 59.0733 559.429 46.5249 547.734 41.5057C522.674 31.4671 485.919 21.4285 447.494 26.4478C402.387 31.4671 377.327 46.5249 365.631 56.5636C360.619 60.3281 352.266 60.3281 345.584 56.5636C333.889 46.5249 308.83 31.4671 263.721 26.4478C223.625 22.6833 186.871 32.7219 163.481 41.5057C151.787 45.2701 155.128 57.8184 166.823 60.3281C188.542 64.0925 216.943 69.1118 235.32 77.8956C243.674 81.6601 243.674 89.1891 236.99 92.9537C205.248 113.031 191.883 143.147 188.542 163.224C186.871 172.007 198.565 178.281 208.589 173.262C238.661 159.459 295.464 135.617 352.266 125.579C353.937 125.579 357.278 125.579 358.949 125.579Z" fill="#6DD627"/>
+            <path d="M166.823 60.2556C173.505 61.5079 180.189 62.7601 186.871 64.0123C208.589 57.7511 235.32 53.9944 263.721 56.4989C308.83 61.5079 333.889 76.5348 345.584 86.5528C350.596 90.3095 358.949 90.3095 365.631 86.5528C377.327 76.5348 402.387 61.5079 447.494 56.4989C475.896 53.9944 502.626 57.7511 524.344 64.0123C531.028 62.7601 537.71 61.5079 544.393 60.2556C556.087 59.0033 559.429 46.4809 547.734 41.472C522.674 31.454 485.919 21.436 447.494 26.445C402.387 31.454 377.327 46.4809 365.631 56.4989C360.619 60.2556 352.266 60.2556 345.584 56.4989C333.889 46.4809 308.83 31.454 263.721 26.445C223.625 22.6883 186.871 32.7062 163.481 41.472C151.787 46.4809 155.128 59.0033 166.823 60.2556Z" fill="#6DD627"/>
+            <path d="M329.218 89.9782C329.218 89.9782 324.221 41.0478 369.192 5.91821C374.189 2.15432 379.185 0.899689 385.848 0.899689C392.51 0.899689 397.507 2.15432 402.504 3.40894C414.163 7.17282 415.829 17.2099 409.166 24.7376C387.514 47.3209 374.189 91.2329 374.189 91.2329" fill="#6DD627"/>
+        </svg>
+        <div class="pomodoro-timer">
+            <i class="fa-solid fa-gear"></i>
+            <div class="timer">
+                <h1>25:00</h1>
+            </div>
+            <div class="start-btn">
+                <button>Start</button>
+            </div>
+        </div>
+    </div>
+    <div class="background" style="display: none">
+        <div class="settings">
+            <div class="settings-title">
+                <button onclick="background.style = 'display: none'">x</button>
+                <h3>Settings</h3>
+            </div>
+            <label for="duration">Pomodoro duration:</label>
+            <input type="text" name="duration" id="duration" placeholder="in minutes" value="25" onchange="durationChange()">
+        </div>
+    </div>
+
+    <audio src="alarm.mp3"></audio>
+
+<script>
+    const time = document.querySelector('.timer h1');
+    const btn = document.querySelector('.start-btn');
+    const alarm = document.querySelector('audio');
+    const cog = document.querySelector('.pomodoro-timer i');
+    const background = document.querySelector('.background');
+    const duration = document.getElementById('duration');
+    let aux = '';
+    let remain = (25*60)-1;
+
+    function timer() {
+        let min = Math.floor(remain/60).toLocaleString('en-US', {minimumIntegerDigits: 2,useGrouping: false})
+        let sec = Math.floor(remain%60).toLocaleString('en-US', {minimumIntegerDigits: 2,useGrouping: false})
+        time.innerHTML = `${min}:${sec}`
+        if(remain <= 0){
+            btn.querySelector('button').click();
+            alarm.currentTime = 0;
+            alarm.play();
+            return;
+        }
+        remain--;
+    }
+
+    function start(){
+        if (btn.querySelector('button').innerHTML === 'Start'){
+            btn.style = 'background-color: #F43C35'
+            btn.querySelector('button').innerHTML = 'Stop';
+            aux = setInterval(timer, 1000);
+        }
+        else {
+            btn.style = 'background-color: rgba(93, 222, 7, 0.9);'
+            btn.querySelector('button').innerHTML = 'Start';
+            clearInterval(aux);
+        }
+
+    }
+
+    function sett() {
+        background.style = 'display: initial';
+    }
+
+    function durationChange() {
+        remain = duration.value*60;
+        timer();
+
+    }
+
+
+    btn.addEventListener('click', start);
+    cog.addEventListener('click', sett);
+
+
+
+</script>
+</body>
+
+</html>
